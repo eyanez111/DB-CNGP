@@ -2,15 +2,15 @@ kind: Cluster
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"postgresql.cnpg.io/v1","kind":"Cluster","metadata":{"annotations":{},"labels":{"app":"vuze","component":"cnpg","service":"vuze-services-server"},"name":"vuze-services-server-cnpg-productiondr","namespace":"vuze"},"spec":{"backup":{"barmanObjectStore":{"destinationPath":"gs://vuse-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}},"wal":{"compression":"gzip","encryption":"AES256"}},"retentionPolicy":"7d"},"bootstrap":{"recovery":{"source":"vuze-services-server-cnpg-production"}},"externalClusters":[{"barmanObjectStore":{"destinationPath":"gs://vuse-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}}},"name":"vuze-services-server-cnpg-production"},{"barmanObjectStore":{"destinationPath":"gs://vuse-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}}},"name":"vuze-services-server-cnpg-productiondr"}],"instances":3,"postgresql":{"parameters":{"archive_mode":"on","archive_timeout":"300","max_replication_slots":"3","max_slot_wal_keep_size":"5GB","wal_level":"replica","wal_retrieve_retry_interval":"300000"},"synchronous":{"method":"any","number":1}},"replica":{"primary":"vuze-services-server-cnpg-production","source":"vuze-services-server-cnpg-production"},"replicationSlots":{"highAvailability":{"enabled":true},"updateInterval":300},"resources":{"limits":{"memory":"256Mi"},"requests":{"memory":"256Mi"}},"storage":{"size":"100Gi"}}}
+      {"apiVersion":"postgresql.cnpg.io/v1","kind":"Cluster","metadata":{"annotations":{},"labels":{"app":"NAME","component":"cnpg","service":"NAME-services-server"},"name":"NAME-services-server-cnpg-productiondr","namespace":"NAME"},"spec":{"backup":{"barmanObjectStore":{"destinationPath":"gs://NAME-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}},"wal":{"compression":"gzip","encryption":"AES256"}},"retentionPolicy":"7d"},"bootstrap":{"recovery":{"source":"NAME-services-server-cnpg-production"}},"externalClusters":[{"barmanObjectStore":{"destinationPath":"gs://NAME-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}}},"name":"NAME-services-server-cnpg-production"},{"barmanObjectStore":{"destinationPath":"gs://NAME-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}}},"name":"NAME-services-server-cnpg-productiondr"}],"instances":3,"postgresql":{"parameters":{"archive_mode":"on","archive_timeout":"300","max_replication_slots":"3","max_slot_wal_keep_size":"5GB","wal_level":"replica","wal_retrieve_retry_interval":"300000"},"synchronous":{"method":"any","number":1}},"replica":{"primary":"NAME-services-server-cnpg-production","source":"NAME-services-server-cnpg-production"},"replicationSlots":{"highAvailability":{"enabled":true},"updateInterval":300},"resources":{"limits":{"memory":"256Mi"},"requests":{"memory":"256Mi"}},"storage":{"size":"100Gi"}}}
   creationTimestamp: "2024-09-27T17:05:21Z"
   generation: 1
   labels:
-    app: vuze
+    app: NAME
     component: cnpg
-    service: vuze-services-server
-  name: vuze-services-server-cnpg-productiondr
-  namespace: vuze
+    service: NAME-services-server
+  name: NAME-services-server-cnpg-productiondr
+  namespace: NAME
   resourceVersion: "11127178"
   uid: 351b12db-137a-4912-ac6c-a590a934fcd0
 spec:
@@ -18,7 +18,7 @@ spec:
     podAntiAffinityType: preferred
   backup:
     barmanObjectStore:
-      destinationPath: gs://vuse-prod-dr/backup/
+      destinationPath: gs://NAME-prod-dr/backup/
       googleCredentials:
         applicationCredentials:
           key: gcsCredentials
@@ -32,24 +32,24 @@ spec:
     recovery:
       database: app
       owner: app
-      source: vuze-services-server-cnpg-production
+      source: NAME-services-server-cnpg-production
   enablePDB: true
   enableSuperuserAccess: false
   externalClusters:
   - barmanObjectStore:
-      destinationPath: gs://vuse-prod-dr/backup/
+      destinationPath: gs://NAME-prod-dr/backup/
       googleCredentials:
         applicationCredentials:
           key: gcsCredentials
           name: cnpg-backup-storage
-    name: vuze-services-server-cnpg-production
+    name: NAME-services-server-cnpg-production
   - barmanObjectStore:
-      destinationPath: gs://vuse-prod-dr/backup/
+      destinationPath: gs://NAME-prod-dr/backup/
       googleCredentials:
         applicationCredentials:
           key: gcsCredentials
           name: cnpg-backup-storage
-    name: vuze-services-server-cnpg-productiondr
+    name: NAME-services-server-cnpg-productiondr
   failoverDelay: 0
   imageName: ghcr.io/cloudnative-pg/postgresql:16.4
   instances: 3
@@ -98,8 +98,8 @@ spec:
   primaryUpdateMethod: restart
   primaryUpdateStrategy: unsupervised
   replica:
-    primary: vuze-services-server-cnpg-production
-    source: vuze-services-server-cnpg-production
+    primary: NAME-services-server-cnpg-production
+    source: NAME-services-server-cnpg-production
   replicationSlots:
     highAvailability:
       enabled: true
@@ -126,28 +126,28 @@ status:
   - goArch: arm64
     hash: e28f9109055832cc1fa1ece7866547f267b43e16c800d7b4335cab24ad5420d4
   certificates:
-    clientCASecret: vuze-services-server-cnpg-productiondr-ca
+    clientCASecret: NAME-services-server-cnpg-productiondr-ca
     expirations:
-      vuze-services-server-cnpg-productiondr-ca: 2024-12-26 17:00:21 +0000 UTC
-      vuze-services-server-cnpg-productiondr-replication: 2024-12-26 17:00:21 +0000
+      NAME-services-server-cnpg-productiondr-ca: 2024-12-26 17:00:21 +0000 UTC
+      NAME-services-server-cnpg-productiondr-replication: 2024-12-26 17:00:21 +0000
         UTC
-      vuze-services-server-cnpg-productiondr-server: 2024-12-26 17:00:21 +0000 UTC
-    replicationTLSSecret: vuze-services-server-cnpg-productiondr-replication
+      NAME-services-server-cnpg-productiondr-server: 2024-12-26 17:00:21 +0000 UTC
+    replicationTLSSecret: NAME-services-server-cnpg-productiondr-replication
     serverAltDNSNames:
-    - vuze-services-server-cnpg-productiondr-rw
-    - vuze-services-server-cnpg-productiondr-rw.vuze
-    - vuze-services-server-cnpg-productiondr-rw.vuze.svc
-    - vuze-services-server-cnpg-productiondr-rw.vuze.svc.cluster.local
-    - vuze-services-server-cnpg-productiondr-r
-    - vuze-services-server-cnpg-productiondr-r.vuze
-    - vuze-services-server-cnpg-productiondr-r.vuze.svc
-    - vuze-services-server-cnpg-productiondr-r.vuze.svc.cluster.local
-    - vuze-services-server-cnpg-productiondr-ro
-    - vuze-services-server-cnpg-productiondr-ro.vuze
-    - vuze-services-server-cnpg-productiondr-ro.vuze.svc
-    - vuze-services-server-cnpg-productiondr-ro.vuze.svc.cluster.local
-    serverCASecret: vuze-services-server-cnpg-productiondr-ca
-    serverTLSSecret: vuze-services-server-cnpg-productiondr-server
+    - NAME-services-server-cnpg-productiondr-rw
+    - NAME-services-server-cnpg-productiondr-rw.NAME
+    - NAME-services-server-cnpg-productiondr-rw.NAME.svc
+    - NAME-services-server-cnpg-productiondr-rw.NAME.svc.cluster.local
+    - NAME-services-server-cnpg-productiondr-r
+    - NAME-services-server-cnpg-productiondr-r.NAME
+    - NAME-services-server-cnpg-productiondr-r.NAME.svc
+    - NAME-services-server-cnpg-productiondr-r.NAME.svc.cluster.local
+    - NAME-services-server-cnpg-productiondr-ro
+    - NAME-services-server-cnpg-productiondr-ro.NAME
+    - NAME-services-server-cnpg-productiondr-ro.NAME.svc
+    - NAME-services-server-cnpg-productiondr-ro.NAME.svc.cluster.local
+    serverCASecret: NAME-services-server-cnpg-productiondr-ca
+    serverTLSSecret: NAME-services-server-cnpg-productiondr-server
   cloudNativePGCommitHash: 5fe5bb6b
   cloudNativePGOperatorHash: f20cbc18bb03eafc1b02c90a8872b8e7a199e63196e6ce546029ea2a503bb883
   conditions:
@@ -169,36 +169,36 @@ status:
   configMapResourceVersion:
     metrics:
       cnpg-default-monitoring: "11124556"
-  currentPrimary: vuze-services-server-cnpg-productiondr-1
+  currentPrimary: NAME-services-server-cnpg-productiondr-1
   currentPrimaryTimestamp: "2024-09-27T17:06:51.254449Z"
   firstRecoverabilityPoint: "2024-09-27T17:07:26Z"
   firstRecoverabilityPointByMethod:
     barmanObjectStore: "2024-09-27T17:07:26Z"
   healthyPVC:
-  - vuze-services-server-cnpg-productiondr-1
-  - vuze-services-server-cnpg-productiondr-2
-  - vuze-services-server-cnpg-productiondr-3
+  - NAME-services-server-cnpg-productiondr-1
+  - NAME-services-server-cnpg-productiondr-2
+  - NAME-services-server-cnpg-productiondr-3
   image: ghcr.io/cloudnative-pg/postgresql:16.4
   instanceNames:
-  - vuze-services-server-cnpg-productiondr-1
-  - vuze-services-server-cnpg-productiondr-2
-  - vuze-services-server-cnpg-productiondr-3
+  - NAME-services-server-cnpg-productiondr-1
+  - NAME-services-server-cnpg-productiondr-2
+  - NAME-services-server-cnpg-productiondr-3
   instances: 3
   instancesReportedState:
-    vuze-services-server-cnpg-productiondr-1:
+    NAME-services-server-cnpg-productiondr-1:
       isPrimary: false
       timeLineID: 1
-    vuze-services-server-cnpg-productiondr-2:
+    NAME-services-server-cnpg-productiondr-2:
       isPrimary: false
       timeLineID: 1
-    vuze-services-server-cnpg-productiondr-3:
+    NAME-services-server-cnpg-productiondr-3:
       isPrimary: false
       timeLineID: 1
   instancesStatus:
     healthy:
-    - vuze-services-server-cnpg-productiondr-1
-    - vuze-services-server-cnpg-productiondr-2
-    - vuze-services-server-cnpg-productiondr-3
+    - NAME-services-server-cnpg-productiondr-1
+    - NAME-services-server-cnpg-productiondr-2
+    - NAME-services-server-cnpg-productiondr-3
   lastSuccessfulBackup: "2024-09-27T17:07:26Z"
   lastSuccessfulBackupByMethod:
     barmanObjectStore: "2024-09-27T17:07:26Z"
@@ -208,7 +208,7 @@ status:
   poolerIntegrations:
     pgBouncerIntegration: {}
   pvcCount: 3
-  readService: vuze-services-server-cnpg-productiondr-r
+  readService: NAME-services-server-cnpg-productiondr-r
   readyInstances: 3
   secretsResourceVersion:
     applicationSecretVersion: "11125372"
@@ -217,12 +217,12 @@ status:
     serverCaSecretVersion: "11124506"
     serverSecretVersion: "11124508"
   switchReplicaClusterStatus: {}
-  targetPrimary: vuze-services-server-cnpg-productiondr-1
+  targetPrimary: NAME-services-server-cnpg-productiondr-1
   targetPrimaryTimestamp: "2024-09-27T17:05:21.972416Z"
   topology:
     instances:
-      vuze-services-server-cnpg-productiondr-1: {}
-      vuze-services-server-cnpg-productiondr-2: {}
-      vuze-services-server-cnpg-productiondr-3: {}
+      NAME-services-server-cnpg-productiondr-1: {}
+      NAME-services-server-cnpg-productiondr-2: {}
+      NAME-services-server-cnpg-productiondr-3: {}
     nodesUsed: 3
     successfullyExtracted: true
