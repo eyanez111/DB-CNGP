@@ -1,0 +1,234 @@
+
+kind: Cluster
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"postgresql.cnpg.io/v1","kind":"Cluster","metadata":{"annotations":{},"labels":{"app":"NAME","component":"cnpg","service":"NAME-services-server"},"name":"NAME-services-server-cnpg-production","namespace":"NAME"},"spec":{"backup":{"barmanObjectStore":{"destinationPath":"gs://NAME-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}},"wal":{"compression":"gzip","encryption":"AES256"}},"retentionPolicy":"7d"},"bootstrap":{"initdb":{"database":"NAME-services-server"}},"externalClusters":[{"barmanObjectStore":{"destinationPath":"gs://NAME-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}}},"name":"NAME-services-server-cnpg-production"},{"barmanObjectStore":{"destinationPath":"gs://NAME-prod-dr/backup/","googleCredentials":{"applicationCredentials":{"key":"gcsCredentials","name":"cnpg-backup-storage"}}},"name":"NAME-services-server-cnpg-productiondr"}],"instances":3,"postgresql":{"parameters":{"archive_mode":"on","archive_timeout":"300","max_replication_slots":"3","max_slot_wal_keep_size":"5GB","wal_level":"replica","wal_retrieve_retry_interval":"300000"},"synchronous":{"method":"any","number":1}},"replica":{"primary":"NAME-services-server-cnpg-production","source":"NAME-services-server-cnpg-productiondr"},"resources":{"limits":{"memory":"256Mi"},"requests":{"memory":"256Mi"}},"storage":{"size":"100Gi"}}}
+  creationTimestamp: "2024-09-26T23:22:19Z"
+  generation: 1
+  labels:
+    app: NAME
+    component: cnpg
+    service: NAME-services-server
+  name: NAME-services-server-cnpg-production
+  namespace: NAME
+  resourceVersion: "10196461"
+  uid: 57abf325-b427-4db0-82bb-532755605819
+spec:
+  affinity:
+    podAntiAffinityType: preferred
+  backup:
+    barmanObjectStore:
+      destinationPath: gs://NAME-prod-dr/backup/
+      googleCredentials:
+        applicationCredentials:
+          key: gcsCredentials
+          name: cnpg-backup-storage
+      wal:
+        compression: gzip
+        encryption: AES256
+    retentionPolicy: 7d
+    target: prefer-standby
+  bootstrap:
+    initdb:
+      database: NAME-services-server
+      encoding: UTF8
+      localeCType: C
+      localeCollate: C
+      owner: NAME-services-server
+  enablePDB: true
+  enableSuperuserAccess: false
+  externalClusters:
+  - barmanObjectStore:
+      destinationPath: gs://NAME-prod-dr/backup/
+      googleCredentials:
+        applicationCredentials:
+          key: gcsCredentials
+          name: cnpg-backup-storage
+    name: NAME-services-server-cnpg-production
+  - barmanObjectStore:
+      destinationPath: gs://NAME-prod-dr/backup/
+      googleCredentials:
+        applicationCredentials:
+          key: gcsCredentials
+          name: cnpg-backup-storage
+    name: NAME-services-server-cnpg-productiondr
+  failoverDelay: 0
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.4
+  instances: 3
+  logLevel: info
+  maxSyncReplicas: 0
+  minSyncReplicas: 0
+  monitoring:
+    customQueriesConfigMap:
+    - key: queries
+      name: cnpg-default-monitoring
+    disableDefaultQueries: false
+    enablePodMonitor: false
+  postgresGID: 26
+  postgresUID: 26
+  postgresql:
+    parameters:
+      archive_mode: "on"
+      archive_timeout: "300"
+      dynamic_shared_memory_type: posix
+      log_destination: csvlog
+      log_directory: /controller/log
+      log_filename: postgres
+      log_rotation_age: "0"
+      log_rotation_size: "0"
+      log_truncate_on_rotation: "false"
+      logging_collector: "on"
+      max_parallel_workers: "32"
+      max_replication_slots: "3"
+      max_slot_wal_keep_size: 5GB
+      max_worker_processes: "32"
+      shared_memory_type: mmap
+      shared_preload_libraries: ""
+      ssl_max_protocol_version: TLSv1.3
+      ssl_min_protocol_version: TLSv1.3
+      wal_keep_size: 512MB
+      wal_level: replica
+      wal_log_hints: "on"
+      wal_receiver_timeout: 5s
+      wal_retrieve_retry_interval: "300000"
+      wal_sender_timeout: 5s
+    syncReplicaElectionConstraint:
+      enabled: false
+    synchronous:
+      method: any
+      number: 1
+  primaryUpdateMethod: restart
+  primaryUpdateStrategy: unsupervised
+  replica:
+    primary: NAME-services-server-cnpg-production
+    source: NAME-services-server-cnpg-productiondr
+  replicationSlots:
+    highAvailability:
+      enabled: true
+      slotPrefix: _cnpg_
+    synchronizeReplicas:
+      enabled: true
+    updateInterval: 30
+  resources:
+    limits:
+      memory: 256Mi
+    requests:
+      memory: 256Mi
+  smartShutdownTimeout: 180
+  startDelay: 3600
+  stopDelay: 1800
+  storage:
+    resizeInUseVolumes: true
+    size: 100Gi
+  switchoverDelay: 3600
+status:
+  availableArchitectures:
+  - goArch: amd64
+    hash: f20cbc18bb03eafc1b02c90a8872b8e7a199e63196e6ce546029ea2a503bb883
+  - goArch: arm64
+    hash: e28f9109055832cc1fa1ece7866547f267b43e16c800d7b4335cab24ad5420d4
+  certificates:
+    clientCASecret: NAME-services-server-cnpg-production-ca
+    expirations:
+      NAME-services-server-cnpg-production-ca: 2024-12-25 23:17:19 +0000 UTC
+      NAME-services-server-cnpg-production-replication: 2024-12-25 23:17:19 +0000
+        UTC
+      NAME-services-server-cnpg-production-server: 2024-12-25 23:17:19 +0000 UTC
+    replicationTLSSecret: NAME-services-server-cnpg-production-replication
+    serverAltDNSNames:
+    - NAME-services-server-cnpg-production-rw
+    - NAME-services-server-cnpg-production-rw.NAME
+    - NAME-services-server-cnpg-production-rw.NAME.svc
+    - NAME-services-server-cnpg-production-rw.NAME.svc.cluster.local
+    - NAME-services-server-cnpg-production-r
+    - NAME-services-server-cnpg-production-r.NAME
+    - NAME-services-server-cnpg-production-r.NAME.svc
+    - NAME-services-server-cnpg-production-r.NAME.svc.cluster.local
+    - NAME-services-server-cnpg-production-ro
+    - NAME-services-server-cnpg-production-ro.NAME
+    - NAME-services-server-cnpg-production-ro.NAME.svc
+    - NAME-services-server-cnpg-production-ro.NAME.svc.cluster.local
+    serverCASecret: NAME-services-server-cnpg-production-ca
+    serverTLSSecret: NAME-services-server-cnpg-production-server
+  cloudNativePGCommitHash: 5fe5bb6b
+  cloudNativePGOperatorHash: f20cbc18bb03eafc1b02c90a8872b8e7a199e63196e6ce546029ea2a503bb883
+  conditions:
+  - lastTransitionTime: "2024-09-26T23:26:02Z"
+    message: Cluster is Ready
+    reason: ClusterIsReady
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2024-09-26T23:22:55Z"
+    message: Continuous archiving is working
+    reason: ContinuousArchivingSuccess
+    status: "True"
+    type: ContinuousArchiving
+  - lastTransitionTime: "2024-09-27T02:00:07Z"
+    message: Backup was successful
+    reason: LastBackupSucceeded
+    status: "True"
+    type: LastBackupSucceeded
+  configMapResourceVersion:
+    metrics:
+      cnpg-default-monitoring: "10136262"
+  currentPrimary: NAME-services-server-cnpg-production-1
+  currentPrimaryTimestamp: "2024-09-26T23:22:51.884238Z"
+  firstRecoverabilityPoint: "2024-09-26T23:23:22Z"
+  firstRecoverabilityPointByMethod:
+    barmanObjectStore: "2024-09-26T23:23:22Z"
+  healthyPVC:
+  - NAME-services-server-cnpg-production-1
+  - NAME-services-server-cnpg-production-2
+  - NAME-services-server-cnpg-production-3
+  image: ghcr.io/cloudnative-pg/postgresql:16.4
+  instanceNames:
+  - NAME-services-server-cnpg-production-1
+  - NAME-services-server-cnpg-production-2
+  - NAME-services-server-cnpg-production-3
+  instances: 3
+  instancesReportedState:
+    NAME-services-server-cnpg-production-1:
+      isPrimary: true
+      timeLineID: 1
+    NAME-services-server-cnpg-production-2:
+      isPrimary: false
+      timeLineID: 1
+    NAME-services-server-cnpg-production-3:
+      isPrimary: false
+      timeLineID: 1
+  instancesStatus:
+    healthy:
+    - NAME-services-server-cnpg-production-1
+    - NAME-services-server-cnpg-production-2
+    - NAME-services-server-cnpg-production-3
+  lastSuccessfulBackup: "2024-09-27T02:00:03Z"
+  lastSuccessfulBackupByMethod:
+    barmanObjectStore: "2024-09-27T02:00:03Z"
+  latestGeneratedNode: 3
+  managedRolesStatus: {}
+  phase: Cluster in healthy state
+  poolerIntegrations:
+    pgBouncerIntegration: {}
+  pvcCount: 3
+  readService: NAME-services-server-cnpg-production-r
+  readyInstances: 3
+  secretsResourceVersion:
+    applicationSecretVersion: "10136220"
+    clientCaSecretVersion: "10136208"
+    replicationSecretVersion: "10136217"
+    serverCaSecretVersion: "10136208"
+    serverSecretVersion: "10136213"
+  switchReplicaClusterStatus: {}
+  targetPrimary: NAME-services-server-cnpg-production-1
+  targetPrimaryTimestamp: "2024-09-26T23:22:19.643775Z"
+  timelineID: 1
+  topology:
+    instances:
+      NAME-services-server-cnpg-production-1: {}
+      NAME-services-server-cnpg-production-2: {}
+      NAME-services-server-cnpg-production-3: {}
+    nodesUsed: 3
+    successfullyExtracted: true
+  writeService: NAME-services-server-cnpg-production-rw
+
